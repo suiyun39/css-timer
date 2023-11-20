@@ -133,3 +133,10 @@ body {
     content: "暂停";
   }
 }
+
+/* 重置按钮激活时清除动画, 实现计时器重置 */
+.btn-reset:active {
+  &~.clock {
+    animation: none;
+  }
+}

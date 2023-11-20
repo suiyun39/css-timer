@@ -119,9 +119,17 @@ body {
   }
 }
 
+.btn-start::before {
+  content: "开始";
+}
+
 /* 利用兄弟选择器向其他元素传导计时器状态 */
 #status-progress:checked {
   &~.clock {
     animation-play-state: running;
+  }
+
+  &~.btn-start::before {
+    content: "暂停";
   }
 }

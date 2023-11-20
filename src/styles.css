@@ -76,9 +76,38 @@ body {
   initial-value: 0;
 }
 
+/* 使用差分动画更新时间. 毫秒动画执行频次为 1s * 100, 所以仅需要更新到 99 */
+@keyframes update-minute {
+  from {
+    --minute: 0;
+  }
+  to {
+    --minute: 59;
+  }
+}
+
+@keyframes update-second {
+  from {
+    --second: 0;
+  }
+  to {
+    --second: 59;
+  }
+}
+
+@keyframes update-millisecond {
+  from {
+    --millisecond: 0;
+  }
+  to {
+    --millisecond: 99;
+  }
+}
+
 /* 使用伪元素构造初始显示以方便使用 CSS 更新 */
 .clock {
   counter-reset: minute var(--minute) second var(--second) millisecond var(--millisecond);
+  animation: update-minute 3600s steps(60) infinite, update-second 60s steps(60) infinite, update-millisecond 1s steps(100) infinite;
 
   &::before {
     content: counter(minute, decimal-leading-zero) ":" counter(second, decimal-leading-zero) "." counter(millisecond, decimal-leading-zero);

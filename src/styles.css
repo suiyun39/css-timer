@@ -59,19 +59,19 @@ body {
 
 /* 使用自定义属性存储时间 */
 @property --minute {
-  syntax: "<integer>"; 
+  syntax: "<integer>";
   inherits: false;
   initial-value: 0;
 }
 
 @property --second {
-  syntax: "<integer>"; 
+  syntax: "<integer>";
   inherits: false;
   initial-value: 0;
 }
 
 @property --millisecond {
-  syntax: "<integer>"; 
+  syntax: "<integer>";
   inherits: false;
   initial-value: 0;
 }
@@ -81,6 +81,7 @@ body {
   from {
     --minute: 0;
   }
+
   to {
     --minute: 59;
   }
@@ -90,6 +91,7 @@ body {
   from {
     --second: 0;
   }
+
   to {
     --second: 59;
   }
@@ -99,6 +101,7 @@ body {
   from {
     --millisecond: 0;
   }
+
   to {
     --millisecond: 99;
   }
@@ -108,9 +111,17 @@ body {
 .clock {
   counter-reset: minute var(--minute) second var(--second) millisecond var(--millisecond);
   animation: update-minute 3600s steps(60) infinite, update-second 60s steps(60) infinite, update-millisecond 1s steps(100) infinite;
+  animation-play-state: paused;
 
   &::before {
     content: counter(minute, decimal-leading-zero) ":" counter(second, decimal-leading-zero) "." counter(millisecond, decimal-leading-zero);
     text-shadow: 3px 3px 3px #000000;
+  }
+}
+
+/* 利用兄弟选择器向其他元素传导计时器状态 */
+#status-progress:checked {
+  &~.clock {
+    animation-play-state: running;
   }
 }

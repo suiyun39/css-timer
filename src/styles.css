@@ -56,3 +56,32 @@ body {
     background-color: #52c41a;
   }
 }
+
+/* 使用自定义属性存储时间 */
+@property --minute {
+  syntax: "<integer>"; 
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --second {
+  syntax: "<integer>"; 
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --millisecond {
+  syntax: "<integer>"; 
+  inherits: false;
+  initial-value: 0;
+}
+
+/* 使用伪元素构造初始显示以方便使用 CSS 更新 */
+.clock {
+  counter-reset: minute var(--minute) second var(--second) millisecond var(--millisecond);
+
+  &::before {
+    content: counter(minute, decimal-leading-zero) ":" counter(second, decimal-leading-zero) "." counter(millisecond, decimal-leading-zero);
+    text-shadow: 3px 3px 3px #000000;
+  }
+}

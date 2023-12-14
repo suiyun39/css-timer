@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "schedule:weekends",
+    ":dependencyDashboardApproval",
+    ":assignee(suiyun39)",
+    ":labels(dependencies)"
+  ],
+  "rebaseWhen": "never",
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "groupName": "github-actions dependencies",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    }
+  ]
+}

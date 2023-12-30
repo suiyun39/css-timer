@@ -64,6 +64,49 @@ HTML 和 CSS 能够进行一定程度的计算。
 > 这里使用了 counter()
 > 函数来优化显示，相关知识可参见 [counter()](https://developer.mozilla.org/zh-CN/docs/Web/CSS/counter)
 
+### 控制状态
+
+HTML 拥有一个天然的状态存储器，那就是复选框 (checkbox)
+。我们可以利用它的选中与否来表示计时器的运行状态。同时，通过使用 `:checked` 伪类，
+我们可以在 CSS 中捕获到这个状态，并通过兄弟选择器将这个状态传递到其他元素上。
+
+```html
+<div>
+  <input type="checkbox" id="Running" />
+  <label for="Running" class="btn-start"></label>
+</div>
+```
+
+```css
+.btn-start::before {
+  content: "开始";
+}
+
+#Running:checked ~ .btn-start::before {
+  content: "暂停";
+}
+```
+
+同样的，我们可以利用这个方法来影响 CSS Animation，从而控制计时逻辑的运行。
+
+```css
+.clock {
+  animation-play-state: paused;
+}
+
+#Running:checked ~ .clock {
+  animation-play-state: running;
+}
+```
+
+最后，我们利用 `:active` 伪类来捕获重置按钮的点击，并将计时器的动画状态重置。
+
+```css
+.btn-reset:active ~ .clock {
+  animation: none;
+}
+```
+
 ## 参考与感谢
 
 - [牛！竟然只用 CSS 就可以实现功能完整的计时器功能～](https://www.bilibili.com/video/BV1bN411u7nZ/)

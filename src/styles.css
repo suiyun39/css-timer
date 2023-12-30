@@ -124,17 +124,18 @@ body {
 }
 
 /* 利用兄弟选择器向其他元素传导计时器状态 */
-#status-progress:checked {
-  &~.clock {
+#Running:checked {
+  & ~ .clock {
     animation-play-state: running;
   }
 
-  &~.btn-start::before {
+  & ~ .btn-start::before {
     content: "暂停";
   }
 
   /* 计时器运行中禁用重置按钮 */
-  &~.btn-reset {
+
+  & ~ .btn-reset {
     pointer-events: none;
     opacity: 0.5;
   }
@@ -142,7 +143,7 @@ body {
 
 /* 重置按钮激活时清除动画, 实现计时器重置 */
 .btn-reset:active {
-  &~.clock {
+  & ~ .clock {
     animation: none;
   }
 }
